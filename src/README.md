@@ -26,3 +26,5 @@ Config params
 Better logging
 Metrics tracking
 Proper class abstraction
+More tests
+Linter tool
