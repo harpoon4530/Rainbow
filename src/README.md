@@ -22,6 +22,7 @@ java -cp ./target/PersonIo.jar org.personio.App
 You need:
 
 CI/CD
+Config params
 Better logging
 Metrics tracking
 Proper class abstraction
