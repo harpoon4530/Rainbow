@@ -1,0 +1,45 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Directory",
+		"_postman_id": "ff016d7a-1e8b-8e87-1629-e2a9fb657788",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Hello - Post",
+			"request": {
+				"url": "localhost:8080/hello",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Mars\",\n  \"hello\": [\n    \"0\",\n    \"1\",\n    \"2\"\n  ],\n  \"city\": \"NY\",\n  \"age\": 32,\n  \"one\": \"two\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Hello - GET",
+			"request": {
+				"url": "localhost:8080/hello",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
