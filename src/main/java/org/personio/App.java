@@ -19,8 +19,6 @@ import java.util.EnumSet;
 public class App {
 
     private static Server jetty;
-    //private final ServletContext servletContext;
-
     public static void main(String[] args) throws Exception {
 
         jetty = new Server(8080);
