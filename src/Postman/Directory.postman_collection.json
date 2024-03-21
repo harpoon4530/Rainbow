@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "Hello - Post",
+			"name": "Hello - Post - BAD JSON",
 			"request": {
 				"url": "localhost:8080/hello",
 				"method": "POST",
@@ -21,7 +21,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"name\": \"Mars\",\n  \"hello\": [\n    \"0\",\n    \"1\",\n    \"2\"\n  ],\n  \"city\": \"NY\",\n  \"age\": 32,\n  \"one\": \"two\"\n}"
+					"raw": "{\n  \"name\": \"Mars\",\n  \"hello\": [\n    \"0\",\n    \"1\",\n    \"2\"\n  ],\n  \"city\": \"NY\",\n  \"age\": 32,\n  \"one\": \"two\"\n"
 				},
 				"description": ""
 			},
@@ -36,6 +36,26 @@
 				"body": {
 					"mode": "formdata",
 					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Hello - Post - Valid JSON",
+			"request": {
+				"url": "localhost:8080/hello",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"Pete\": \"Nick\",\n  \"Barbara\": \"Nick\",\n  \"Nick\": \"Sophie\",\n  \"Sophie\": \"Jonas\"\n}"
 				},
 				"description": ""
 			},

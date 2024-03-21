@@ -3,13 +3,18 @@ package org.personio.models;
 import jakarta.inject.Inject;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.personio.db.DbModule;
+import org.personio.handlers.Hello;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Map;
 
 public class EmployeeModel {
 
+    private static final Logger logger = LoggerFactory.getLogger(EmployeeModel.class);
     private final BasicDataSource dataSource;
 
     DbModule dbModule;
@@ -20,7 +25,6 @@ public class EmployeeModel {
         this.dbModule = dbModule;
 
         // 1. connect to the db; if not present - throw exception and stop
-
         this.dataSource = new BasicDataSource();
         dbSetup();
 
@@ -63,6 +67,36 @@ public class EmployeeModel {
         }
     }
 
+    public void writeToDb(Map<String, String> directoryData) throws SQLException {
+
+
+        try {
+            dbModule.getConnection().setAutoCommit(false);
+
+            // Delete the previous data from the table
+            String delete = "TRUNCATE " + dbModule.dbName + "." + dbModule.directoryTable;
+            Statement deleteStmt = dbModule.getConnection().createStatement();
+            deleteStmt.executeUpdate(delete);
+
+            // Add new data to the table
+            for (Map.Entry<String, String> entry : directoryData.entrySet()) {
+                String row = "INSERT INTO " + dbModule.dbName + "." + dbModule.directoryTable +
+                        "(employee, supervisor) VALUES ('" + entry.getKey() + "' , '" + entry.getValue() + "')";
+                logger.info("Executing the statement: {}", row);
+                Statement stmt = dbModule.getConnection().createStatement();
+                stmt.executeUpdate(row);
+            }
+            dbModule.getConnection().commit();
+        }
+        catch(Exception e) {
+            dbModule.getConnection().rollback();
+            e.printStackTrace();
+        }
+        finally {
+            //dbModule.getConnection().close();
+        }
+    }
+
     public void writeToDb() {
 
         String insertQuery0 = "INSERT INTO employee_directory (employee, supervisor) VALUES ('One', 'Two')";
@@ -76,9 +110,8 @@ public class EmployeeModel {
             throw new RuntimeException(e);
         }
 
-
-        System.err.println("Writing to the DB!!!");
-        int i = 0;
+        //System.err.println("Writing to the DB!!!");
+        //int i = 0;
     }
 
 }
