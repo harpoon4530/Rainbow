@@ -34,6 +34,8 @@ public class App {
         // Setup auth; Basic dGVzdDp1c2Vy
         servletContextHandler.setSecurityHandler(BasicAuth.basicAuth("test", "user", "Private!"));
 
+
+        // TODO: this one needs to be removed from here
         Test test = injector.getInstance(Test.class);
         servletContextHandler.addServlet(new ServletHolder(test), "/test/*");
 
