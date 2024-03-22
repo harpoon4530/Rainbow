@@ -11,6 +11,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.personio.handlers.Hello;
+import org.personio.handlers.Test;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.ServletContext;
@@ -33,6 +34,11 @@ public class App {
 
         Hello hello = injector.getInstance(Hello.class);
         servletContextHandler.addServlet(new ServletHolder(hello), "/hello");
+
+        Test test = injector.getInstance(Test.class);
+        servletContextHandler.addServlet(new ServletHolder(test), "/test");
+
+        //servletContextHandler.addServlet(new ServletHolder((hello), ""));
 
         System.err.println("Starting the server!!");
         jetty.start();

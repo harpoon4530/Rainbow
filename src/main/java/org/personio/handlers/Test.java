@@ -9,24 +9,26 @@ import org.personio.models.EmployeeModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+public class Test extends BaseServlet {
 
-public class Hello extends BaseServlet {
-
-    private static final Logger logger = LoggerFactory.getLogger(Hello.class);
+    private static final Logger logger = LoggerFactory.getLogger(Test.class);
 
     private final EmployeeModel employeeModel;
 
     private static final int bufferLength = 65536;
     @Inject
-    public Hello(EmployeeModel employeeModel) {
+    public Test(EmployeeModel employeeModel) {
         this.employeeModel = employeeModel;
     }
 
@@ -41,27 +43,8 @@ public class Hello extends BaseServlet {
         try {
             //List<String> t1 = employeeModel.findEmployee("Sophie");
             //List<String> t2 = employeeModel.findEmployee("Foobar");
-            Employee l0 = employeeModel.findNDeep("Pete", 0);
+            String l0 = findNDeep("Pete", 0);
             System.err.println("L0 ==========> " + l0);
-
-            Employee l1 = employeeModel.findNDeep("Pete", 1);
-            System.err.println("L1 ==========> " + l1);
-
-            Employee l2 = employeeModel.findNDeep("Pete", 2);
-            System.err.println("L2 ==========> " + l2);
-
-            Employee l3 = employeeModel.findNDeep("Pete", 3);
-            System.err.println("L3 ==========> " + l3);
-
-            Employee l4 = employeeModel.findNDeep("Pete", 4);
-            System.err.println("L4 ==========> " + l4);
-
-            Employee l5 = employeeModel.findNDeep("Pete", 5);
-            System.err.println("L5 ==========> " + l5);
-
-            Employee n1 = employeeModel.findNDeep("Nick", 1);
-            System.err.println("N1 ==========> " + n1);
-
 
             employeeModel.readAllFromDb();
             //employeeModel.writeToDb();
@@ -84,22 +67,20 @@ public class Hello extends BaseServlet {
         response.getWriter().println("{ \"status\": \"ok\"}");
     }
 
-    public Map<String, Object> generateHierarchy() throws SQLException {
+    public String findNDeep(String user, int depth) throws Exception {
 
-        List<Employee> dbEmployees = employeeModel.readAllFromDb();
+        Employee employee = employeeModel.findEmployee(user);
+        String supervisor = employee.getSupervisor();
 
-        Set<String> supervisors = new HashSet<>();
-        Set<String> employees = new HashSet<>();
-
-        for (Employee emp : dbEmployees) {
-            employees.add(emp.getName());
-            supervisors.add(emp.getSupervisor());
+        if (depth == 0) {
+            return user;
         }
 
-        Employee rootEmployee = employeeModel.getRootEmployee();
-        Map<String, Object> hierarchy = employeeModel.genHierarchy();
-
-        return hierarchy;
+        if (depth == 1 || supervisor == null) {
+            return supervisor;
+        } else {
+            return findNDeep(supervisor, depth -1);
+        }
     }
 
     @Override
@@ -150,14 +131,6 @@ public class Hello extends BaseServlet {
             logger.info("Record: employee:{}; supervisor:{}", key, value);
         }
         writeValidJsonToDB(jsonMap);
-
-        try {
-            Map<String, Object> hierarchy = employeeModel.genHierarchy();
-            JSONObject jsonObject = new JSONObject(hierarchy);
-            logger.info("Hiearchy: {}", jsonObject.toString());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private void writeValidJsonToDB(Map<String, String> jsonMap) {

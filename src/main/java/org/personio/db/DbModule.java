@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
-import java.util.Properties;
 
 public class DbModule {
 
@@ -60,8 +59,6 @@ public class DbModule {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
 
         try {
             Statement stmt = connection.createStatement();
