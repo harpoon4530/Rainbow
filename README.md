@@ -19,6 +19,11 @@ java -cp ./target/DirectoryJ-1.0-SNAPSHOT.jar org.personio.App
 java -cp ./target/PersonIo.jar org.personio.App
 
 
+Added auth to the service; Credentials:
+username: test
+password: user
+HTTP header: {Authorization: Basic dGVzdDp1c2Vy}
+
 You need:
 
 CI/CD

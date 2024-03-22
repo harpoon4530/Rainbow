@@ -6,16 +6,11 @@ import com.google.inject.servlet.GuiceFilter;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.personio.handlers.Hello;
 import org.personio.handlers.Test;
-
-import javax.servlet.DispatcherType;
-import javax.servlet.ServletContext;
-import java.util.EnumSet;
+import org.personio.security.BasicAuth;
 
 public class App {
 
@@ -24,7 +19,7 @@ public class App {
 
         jetty = new Server(8080);
 
-        ServletContextHandler servletContextHandler = new ServletContextHandler(jetty, "/", true, false);
+        ServletContextHandler servletContextHandler = new ServletContextHandler(jetty, "/", true, true);
 
         HandlerList handlers = new HandlerList();
         handlers.setHandlers(new Handler[]{servletContextHandler});
@@ -35,10 +30,15 @@ public class App {
         Hello hello = injector.getInstance(Hello.class);
         servletContextHandler.addServlet(new ServletHolder(hello), "/hello");
 
-        Test test = injector.getInstance(Test.class);
-        servletContextHandler.addServlet(new ServletHolder(test), "/test");
 
-        //servletContextHandler.addServlet(new ServletHolder((hello), ""));
+        // Setup auth; Basic dGVzdDp1c2Vy
+        servletContextHandler.setSecurityHandler(BasicAuth.basicAuth("test", "user", "Private!"));
+
+        Test test = injector.getInstance(Test.class);
+        servletContextHandler.addServlet(new ServletHolder(test), "/test/*");
+
+
+
 
         System.err.println("Starting the server!!");
         jetty.start();

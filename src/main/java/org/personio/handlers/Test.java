@@ -39,28 +39,18 @@ public class Test extends BaseServlet {
             throws IOException {
 
         // Check the request here for servlet management
+        // http://localhost:8080/test/1/2
+        System.err.println("======> " + request.getServletPath());
+        System.err.println("======> " + request.getContextPath());
+        System.err.println("======> " + request.getPathInfo());
+        System.err.println("======> " + request.getAuthType());
 
-        try {
-            //List<String> t1 = employeeModel.findEmployee("Sophie");
-            //List<String> t2 = employeeModel.findEmployee("Foobar");
-            String l0 = findNDeep("Pete", 0);
-            System.err.println("L0 ==========> " + l0);
-
-            employeeModel.readAllFromDb();
-            //employeeModel.writeToDb();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            logger.error("The user {} is not in the system; hence we can't find the supervisor.");
-
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.getWriter().println("{ \"status\": \"ok\"}");
-
-            throw new RuntimeException(e);
-        }
-
-        logger.info("Serviced a request here!!!!");
+        /*
+      ======> /test
+      ======>
+      ======> /1/2
+      ======> null
+         */
 
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
