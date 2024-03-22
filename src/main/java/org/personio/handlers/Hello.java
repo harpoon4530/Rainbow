@@ -68,7 +68,7 @@ public class Hello extends BaseServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
-            logger.error("The user {} is not in the system; hence we can't find the supervisor.");
+            logger.error("The user {} is not in the system; hence we can't find the supervisor at the depth.");
 
             response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -82,24 +82,6 @@ public class Hello extends BaseServlet {
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().println("{ \"status\": \"ok\"}");
-    }
-
-    public Map<String, Object> generateHierarchy() throws SQLException {
-
-        List<Employee> dbEmployees = employeeModel.readAllFromDb();
-
-        Set<String> supervisors = new HashSet<>();
-        Set<String> employees = new HashSet<>();
-
-        for (Employee emp : dbEmployees) {
-            employees.add(emp.getName());
-            supervisors.add(emp.getSupervisor());
-        }
-
-        Employee rootEmployee = employeeModel.getRootEmployee();
-        Map<String, Object> hierarchy = employeeModel.genHierarchy();
-
-        return hierarchy;
     }
 
     @Override
@@ -122,9 +104,10 @@ public class Hello extends BaseServlet {
         JSONObject readJson;
         String jsonString = buf.toString();
 
+        JSONObject jsonObject = new JSONObject();
         try {
             readJson = new JSONObject(jsonString);
-            processValidJson(readJson);
+            jsonObject = processValidJson(readJson);
         } catch (JSONException e) {
             logger.error("Unable to parse the JSON string:{}", jsonString);
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -134,10 +117,11 @@ public class Hello extends BaseServlet {
 
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println("{ \"status\": \"ok\"}");
+        response.getWriter().println(jsonObject.toString());
+        //response.getWriter().println("{ \"status\": \"ok\"}");
     }
 
-    private final void processValidJson(JSONObject json) {
+    private final JSONObject processValidJson(JSONObject json) {
 
         Map<String, String> jsonMap = new HashMap<>();
 
@@ -151,13 +135,15 @@ public class Hello extends BaseServlet {
         }
         writeValidJsonToDB(jsonMap);
 
+        JSONObject jsonObject = null;
         try {
-            Map<String, Object> hierarchy = employeeModel.genHierarchy();
-            JSONObject jsonObject = new JSONObject(hierarchy);
+            Map<String, Object> hierarchy = employeeModel.generateHierarchy();
+            jsonObject = new JSONObject(hierarchy);
             logger.info("Hiearchy: {}", jsonObject.toString());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return jsonObject;
     }
 
     private void writeValidJsonToDB(Map<String, String> jsonMap) {
@@ -167,7 +153,6 @@ public class Hello extends BaseServlet {
             logger.error("Error writing to db");
             throw new RuntimeException(e);
         }
-
     }
 }
 

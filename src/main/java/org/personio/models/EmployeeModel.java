@@ -46,7 +46,7 @@ public class EmployeeModel {
         }
     }
 
-    public Map<String, Object> genHierarchy() throws SQLException {
+    public Map<String, Object> generateHierarchy() throws SQLException {
 
         List<Employee> dbEmployees = this.readAllFromDb();
         Employee root = getRootEmployee(dbEmployees);

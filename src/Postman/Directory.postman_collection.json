@@ -60,6 +60,40 @@
 				"description": ""
 			},
 			"response": []
+		},
+		{
+			"name": "Hello - GET - Find Employee",
+			"request": {
+				"url": "localhost:8080/hello",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Hello - Post - Valid JSON Single Entry",
+			"request": {
+				"url": "localhost:8080/hello",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"Pete\": \"Nick\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }
