@@ -8,11 +8,13 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.personio.handlers.Directory;
-import org.personio.handlers.Test;
 import org.personio.security.BasicAuth;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class App {
 
+    private static final Logger logger = LoggerFactory.getLogger(App.class);
     private static Server jetty;
     public static void main(String[] args) throws Exception {
 
@@ -34,7 +36,7 @@ public class App {
         servletContextHandler.setSecurityHandler(
                 BasicAuth.basicAuth("test", "user", "Private!"));
 
-        System.err.println("Starting the server!!");
+        logger.info("Starting the server!!");
         jetty.start();
         jetty.join();
 
