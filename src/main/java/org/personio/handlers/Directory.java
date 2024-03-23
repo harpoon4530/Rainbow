@@ -18,15 +18,15 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class Hello extends BaseServlet {
+public class Directory extends BaseServlet {
 
-    private static final Logger logger = LoggerFactory.getLogger(Hello.class);
+    private static final Logger logger = LoggerFactory.getLogger(Directory.class);
 
     private final EmployeeModel employeeModel;
 
     private static final int bufferLength = 65536;
     @Inject
-    public Hello(EmployeeModel employeeModel) {
+    public Directory(EmployeeModel employeeModel) {
         this.employeeModel = employeeModel;
     }
 
@@ -36,52 +36,39 @@ public class Hello extends BaseServlet {
             HttpServletResponse response)
             throws IOException {
 
-        // Check the request here for servlet management
+        String path = request.getPathInfo();
+        String[] pathParts = path.split("/");
 
-        try {
-            //List<String> t1 = employeeModel.findEmployee("Sophie");
-            //List<String> t2 = employeeModel.findEmployee("Foobar");
-            Employee l0 = employeeModel.findNDeep("Pete", 0);
-            System.err.println("L0 ==========> " + l0);
-
-            Employee l1 = employeeModel.findNDeep("Pete", 1);
-            System.err.println("L1 ==========> " + l1);
-
-            Employee l2 = employeeModel.findNDeep("Pete", 2);
-            System.err.println("L2 ==========> " + l2);
-
-            Employee l3 = employeeModel.findNDeep("Pete", 3);
-            System.err.println("L3 ==========> " + l3);
-
-            Employee l4 = employeeModel.findNDeep("Pete", 4);
-            System.err.println("L4 ==========> " + l4);
-
-            Employee l5 = employeeModel.findNDeep("Pete", 5);
-            System.err.println("L5 ==========> " + l5);
-
-            Employee n1 = employeeModel.findNDeep("Nick", 1);
-            System.err.println("N1 ==========> " + n1);
-
-
-            employeeModel.readAllFromDb();
-            //employeeModel.writeToDb();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            logger.error("The user {} is not in the system; hence we can't find the supervisor at the depth.");
-
-            response.setContentType("application/json");
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.getWriter().println("{ \"status\": \"ok\"}");
-
-            throw new RuntimeException(e);
+        if (pathParts.length != 3) {
+            logger.error("Invalid path given; cannot query the path: {}", path);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
         }
+        String employee = pathParts[1];
+        int depth = Integer.valueOf(pathParts[2]);
 
-        logger.info("Serviced a request here!!!!");
+        Employee supervisor = null;
+        // Check the request here for servlet management
+        try {
+
+            List<String> chain = new ArrayList<String>();
+
+            supervisor = employeeModel.findNDeep(employee, depth);
+
+        } catch (SQLException e) {
+            logger.error("Issues finding the user: {} to the depth: {}", employee, depth);
+            //throw new RuntimeException(e);
+            return;
+        } catch (Exception e) {
+            logger.error("The user {} is not in the system; hence we can't find the supervisor at the depth.{}", employee, depth);
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+        logger.info("Serviced a request here!!!! Would be good to add metrics in here!!!");
 
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println("{ \"status\": \"ok\"}");
+        response.getWriter().println("{ \"supervisor\": \"" + supervisor.getName() + "\"}");
     }
 
     @Override

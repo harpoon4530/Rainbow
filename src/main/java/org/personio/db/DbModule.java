@@ -2,7 +2,7 @@ package org.personio.db;
 
 import com.google.inject.Inject;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
-import org.personio.handlers.Hello;
+import org.personio.handlers.Directory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +10,7 @@ import java.sql.*;
 
 public class DbModule {
 
-    private static final Logger logger = LoggerFactory.getLogger(Hello.class);
+    private static final Logger logger = LoggerFactory.getLogger(Directory.class);
 
     private final String jdbcUrl;
     private final String user;
@@ -38,7 +38,7 @@ public class DbModule {
             logger.info("Trying to connect to the DB at: {} with user {}", jdbcUrl, user);
             connection = DriverManager.getConnection(jdbcUrl, user, password);
         } catch ( MySQLSyntaxErrorException e) {
-            System.out.println("The database does now exist!!!!");
+            logger.error("The database does now exist!!!!");
             throw new RuntimeException("Cannot connect to DB; " + e.getMessage());
         }
 

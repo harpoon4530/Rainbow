@@ -19,17 +19,23 @@ java -cp ./target/DirectoryJ-1.0-SNAPSHOT.jar org.personio.App
 java -cp ./target/PersonIo.jar org.personio.App
 
 
-Added auth to the service; Credentials:
+### To Run
+User created with the following creds:
 username: test
 password: user
 HTTP header: {Authorization: Basic dGVzdDp1c2Vy}
 
-You need:
+To POST a new JSON file; use the example from the Postman collection:
 
+*Post - Valid JSON*
+
+
+### Improvements
 CI/CD
 Config params
 Better logging
 Metrics tracking
 Proper class abstraction
+Exception handling
 More tests
 Linter tool

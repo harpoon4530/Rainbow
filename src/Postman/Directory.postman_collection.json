@@ -8,14 +8,144 @@
 	},
 	"item": [
 		{
-			"name": "Hello - Post - BAD JSON",
+			"name": "GET - Bad user",
 			"request": {
-				"url": "localhost:8080/hello",
+				"url": "localhost:8080/directory/foobar/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic dGVzdDp1c2Vy",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Good User Good Depth 0",
+			"request": {
+				"url": "localhost:8080/directory/nick/0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic dGVzdDp1c2Vy",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Good User Good Depth 1",
+			"request": {
+				"url": "localhost:8080/directory/nick/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic dGVzdDp1c2Vy",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Good User Good Depth 2",
+			"request": {
+				"url": "localhost:8080/directory/nick/2",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic dGVzdDp1c2Vy",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET - Good User BAD Depth 3",
+			"request": {
+				"url": "localhost:8080/directory/nick/3",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic dGVzdDp1c2Vy",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Post - Valid JSON",
+			"request": {
+				"url": "localhost:8080/directory",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic dGVzdDp1c2Vy",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"Pete\": \"Nick\",\n  \"Barbara\": \"Nick\",\n  \"Nick\": \"Sophie\",\n  \"Sophie\": \"Jonas\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Post - BAD JSON",
+			"request": {
+				"url": "localhost:8080/directory",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic dGVzdDp1c2Vy",
 						"description": ""
 					}
 				],
@@ -28,23 +158,34 @@
 			"response": []
 		},
 		{
-			"name": "Hello - GET",
+			"name": "Test - Post - Valid JSON Single Entry",
 			"request": {
-				"url": "localhost:8080/hello",
-				"method": "GET",
-				"header": [],
+				"url": "localhost:8080/directory",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic dGVzdDp1c2Vy",
+						"description": ""
+					}
+				],
 				"body": {
-					"mode": "formdata",
-					"formdata": []
+					"mode": "raw",
+					"raw": "{\n  \"Pete\": \"Nick\"\n}"
 				},
 				"description": ""
 			},
 			"response": []
 		},
 		{
-			"name": "Hello - Post - Valid JSON",
+			"name": "Post - Valid JSON NO Auth",
 			"request": {
-				"url": "localhost:8080/hello",
+				"url": "localhost:8080/directory",
 				"method": "POST",
 				"header": [
 					{
@@ -62,9 +203,9 @@
 			"response": []
 		},
 		{
-			"name": "Hello - GET - Find Employee",
+			"name": "GET No Auth Header",
 			"request": {
-				"url": "localhost:8080/hello",
+				"url": "localhost:8080/directory",
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -76,9 +217,9 @@
 			"response": []
 		},
 		{
-			"name": "Hello - Post - Valid JSON Single Entry",
+			"name": "Post - Invalid Auth",
 			"request": {
-				"url": "localhost:8080/hello",
+				"url": "localhost:8080/directory",
 				"method": "POST",
 				"header": [
 					{
@@ -89,7 +230,47 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"Pete\": \"Nick\"\n}"
+					"raw": "{\n  \"name\": \"Mars\",\n  \"hello\": [\n    \"0\",\n    \"1\",\n    \"2\"\n  ],\n  \"city\": \"NY\",\n  \"age\": 32,\n  \"one\": \"two\"\n"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET - BAD request format 1",
+			"request": {
+				"url": "localhost:8080/directory/nick",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic dGVzdDp1c2Vy",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET - BAD request format 2",
+			"request": {
+				"url": "localhost:8080/directory/3",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic dGVzdDp1c2Vy",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
 				},
 				"description": ""
 			},
