@@ -68,13 +68,13 @@ https://www.virtualbox.org/wiki/Downloads
 
 ### This builds the package
 
-    _docker context use desktop-linux_
+    docker context use desktop-linux
 
-    _docker build --tag directory ._
+    docker build --tag directory .
 
 ### To run the docker image; ensure you have K8 running
 
-    _docker run -p 8080:8080 -d directory_
+    docker run -p 8080:8080 -d directory
 
     docker ps
 
@@ -95,17 +95,15 @@ Ensure you have XCode installed
 
 https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/
 
-    _brew install kubectl_
+    brew install kubectl
 
 **Install Minikube**
 
-    _brew install minikube_
-
-    _kubectl cluster-info_
+    brew install minikube
 
 **To Check the cluster**
     
-    _kubectl cluster-info_
+    kubectl cluster-info
 
 
 
@@ -119,7 +117,8 @@ https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip
 ## To Run
 
 ### Start Kubernetes
-_kubectl cluster-info_
+      minikube start
+      kubectl cluster-info
 
 [comment]: <> (Kubernetes control plane is running at https://192.168.64.2:8443)
 
