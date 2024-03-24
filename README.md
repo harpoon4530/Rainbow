@@ -35,7 +35,7 @@ https://docs.docker.com/desktop/install/mac-install/
 ](https://desktop.docker.com/mac/main/amd64/122432/Docker.dmg?_gl=1*1djsy22*_ga*MjAyNzUwMzM5NC4xNjk5ODM5MTIx*_ga_XJWPQMJYHQ*MTY5OTgzOTEyMC4xLjEuMTY5OTg0MTcyNC41Ny4wLjA.
 )
 
-    _brew install --cask docker virtualbox_
+    brew install --cask docker virtualbox
 
     brew install docker-machine docker docker-compose
     brew install docker
