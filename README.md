@@ -84,6 +84,10 @@ https://www.virtualbox.org/wiki/Downloads
 
     docker image rm -f {image}
 
+    docker system prune -a
+
+    docker kill {image}
+
 Docker versions may cause issues depending on Intel vs ARM chips etc.
 Make sure you get install the correct version
 
