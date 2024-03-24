@@ -26,6 +26,7 @@ RUN wget https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip \
     && cd Directory-main  \
     && mvn clean package
 
-#
+#EXPOSE
+#ENTRYPOINT
 
 CMD ["/usr/bin/supervisord","-n"]
