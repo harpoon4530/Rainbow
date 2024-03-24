@@ -120,6 +120,8 @@ https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip
       minikube start
       kubectl cluster-info
 
+[comment]: <> (      minikube start --driver=docker)
+
 [comment]: <> (Kubernetes control plane is running at https://192.168.64.2:8443)
 
 [comment]: <> (CoreDNS is running at https://192.168.64.2:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy)
