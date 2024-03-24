@@ -21,8 +21,10 @@ java -cp ./target/PersonIo.jar org.personio.App
 Install docker:
 
 https://docs.docker.com/desktop/install/mac-install/
-https://desktop.docker.com/mac/main/amd64/122432/Docker.dmg?_gl=1*1djsy22*_ga*MjAyNzUwMzM5NC4xNjk5ODM5MTIx*_ga_XJWPQMJYHQ*MTY5OTgzOTEyMC4xLjEuMTY5OTg0MTcyNC41Ny4wLjA.
 
+[Updated Instructions
+](https://desktop.docker.com/mac/main/amd64/122432/Docker.dmg?_gl=1*1djsy22*_ga*MjAyNzUwMzM5NC4xNjk5ODM5MTIx*_ga_XJWPQMJYHQ*MTY5OTgzOTEyMC4xLjEuMTY5OTg0MTcyNC41Ny4wLjA.
+)
 
 Download the Repo:
 https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip
