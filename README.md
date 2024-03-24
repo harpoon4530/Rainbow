@@ -176,6 +176,9 @@ This needs to be done before starting the application; since it depends on a val
 
 ### Start App
 
+MySQL credentials are: (<user:password>)    (<root:password>) 
+
+
 
 
 
