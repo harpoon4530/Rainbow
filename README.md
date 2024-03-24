@@ -8,14 +8,16 @@ Follow the instructions to install _maven_.
 https://ports.macports.org/port/maven3/
 
 Download dependencies
-_mvn dependency:resolve_
 
-_mvn clean package_
+    mvn dependency:resolve
 
-_mvn clean package_
-java -cp ./target/DirectoryJ-1.0-SNAPSHOT.jar org.personio.App
+    mvn clean package
 
-java -cp ./target/PersonIo.jar org.personio.App
+    mvn clean package
+
+    java -cp ./target/DirectoryJ-1.0-SNAPSHOT.jar org.personio.App
+
+    java -cp ./target/PersonIo.jar org.personio.App
 
 Use the Postman collection under the Postman directory to send requests
 
@@ -33,12 +35,12 @@ https://docs.docker.com/desktop/install/mac-install/
 ](https://desktop.docker.com/mac/main/amd64/122432/Docker.dmg?_gl=1*1djsy22*_ga*MjAyNzUwMzM5NC4xNjk5ODM5MTIx*_ga_XJWPQMJYHQ*MTY5OTgzOTEyMC4xLjEuMTY5OTg0MTcyNC41Ny4wLjA.
 )
 
-_brew install --cask docker virtualbox_
+    _brew install --cask docker virtualbox_
 
-_brew install docker-machine docker docker-compose_
-_brew install docker_
-_brew install --cask docker_
-_brew install --cask dockmate_
+    _brew install docker-machine docker docker-compose_
+    _brew install docker_
+    _brew install --cask docker_
+    _brew install --cask dockmate_
 
 
 Download and install VirtualBox
@@ -66,20 +68,21 @@ https://www.virtualbox.org/wiki/Downloads
 
 ### This builds the package
 
-_docker context use desktop-linux_
+    _docker context use desktop-linux_
 
-_docker build --tag directory ._
+    _docker build --tag directory ._
 
 ### To run the docker image; ensure you have K8 running
-_docker run -p 8080:8080 -d directory_
 
-docker ps
+    _docker run -p 8080:8080 -d directory_
 
-docker exec -it {image} bash
+    docker ps
 
-docker kill {image}
+    docker exec -it {image} bash
 
-docker image rm -f {image}
+    docker kill {image}
+
+    docker image rm -f {image}
 
 Docker versions may cause issues depending on Intel vs ARM chips etc.
 Make sure you get install the correct version
@@ -92,13 +95,18 @@ Ensure you have XCode installed
 
 https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/
 
-_brew install kubectl_
+    _brew install kubectl_
 
 **Install Minikube**
 
-_brew install minikube_
+    _brew install minikube_
 
-_kubectl cluster-info_
+    _kubectl cluster-info_
+
+**To Check the cluster**
+    
+    _kubectl cluster-info_
+
 
 
 **Download the Repo:**
@@ -108,17 +116,14 @@ https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip
 ^^ Better ways to set it up like using SSH keys etc
 
 
-
-
-
 ## To Run
 
 ### Start Kubernetes
 _kubectl cluster-info_
 
-Kubernetes control plane is running at https://192.168.64.2:8443
+[comment]: <> (Kubernetes control plane is running at https://192.168.64.2:8443)
 
-CoreDNS is running at https://192.168.64.2:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+[comment]: <> (CoreDNS is running at https://192.168.64.2:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy)
 
 
 
@@ -129,9 +134,46 @@ CoreDNS is running at https://192.168.64.2:8443/api/v1/namespaces/kube-system/se
 
 This needs to be done before starting the application; since it depends on a valid MySQL connection.
 
+0. Log into the correct directory
+    
+        cd mysql-kube
+   
+1. Create persistent volume
+   
+        kubectl apply -f mysql-pv.yaml
+
+   
+2. Create the Persistent Volume Claim
+
+        kubectl apply -f mysql-pvc.yaml
 
 
+3. Create the Deployment
 
+        kubectl apply -f mysql-deployment.yaml
+
+4. Create the Service
+   
+        kubectl apply -f mysql-service.yaml
+
+
+5. Check if the kubernetes objects were successfully created with:
+    
+    **Deployment:**
+
+        kubectl get deployments
+
+    **Pod:**
+   
+        kubectl get pods
+
+    **Service:**
+        
+        kubectl get services
+
+    **To check the status, execute:**
+        
+        kubectl run -it --rm --image=mysql:8.0 --restart=Never mysql-client -- mysql -h mysql --password="password"
 
 ### Start App
 
