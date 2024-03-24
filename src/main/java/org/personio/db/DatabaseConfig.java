@@ -1,10 +1,17 @@
 package org.personio.db;
 
+import org.personio.handlers.Directory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class DatabaseConfig {
+
+    private static final Logger logger = LoggerFactory.getLogger(DatabaseConfig.class);
+
     private static final Properties properties = new Properties();
 
     static {
@@ -19,6 +26,7 @@ public class DatabaseConfig {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        logger.info("Loaded the db file correctly!!!");
     }
 
     public static String getDbUrl() {
