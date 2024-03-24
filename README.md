@@ -37,10 +37,10 @@ https://docs.docker.com/desktop/install/mac-install/
 
     _brew install --cask docker virtualbox_
 
-    _brew install docker-machine docker docker-compose_
-    _brew install docker_
-    _brew install --cask docker_
-    _brew install --cask dockmate_
+    brew install docker-machine docker docker-compose
+    brew install docker
+    brew install --cask docker
+    brew install --cask dockmate
 
 
 Download and install VirtualBox
