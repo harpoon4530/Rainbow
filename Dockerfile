@@ -26,8 +26,12 @@ RUN wget https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip \
     && cd Directory-main  \
     && mvn clean package
 
+# put in the correct config
 RUN cd /Directory-main/src/main/resources \
     && mv docker.properties db.properties
+
+
+
 
 #EXPOSE
 #ENTRYPOINT
