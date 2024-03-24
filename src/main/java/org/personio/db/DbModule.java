@@ -24,7 +24,6 @@ public class DbModule {
 
     @Inject
     public DbModule() throws SQLException {
-        //this.properties = new Properties();
 
         // Get database credentials from DatabaseConfig class
         this.jdbcUrl = DatabaseConfig.getDbUrl();

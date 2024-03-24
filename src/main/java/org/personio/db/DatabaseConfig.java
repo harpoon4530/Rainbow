@@ -17,7 +17,7 @@ public class DatabaseConfig {
     static {
         try (InputStream input = DatabaseConfig.class.getClassLoader().getResourceAsStream("db.properties")) {
             if (input == null) {
-                System.out.println("Sorry, unable to find db.properties");
+                logger.error("Sorry, unable to find db.properties");
                 System.exit(1);
             }
 
@@ -27,6 +27,7 @@ public class DatabaseConfig {
             e.printStackTrace();
         }
         logger.info("Loaded the db file correctly!!!");
+        logger.info("DB url: {}", properties.getProperty("db.url"));
     }
 
     public static String getDbUrl() {

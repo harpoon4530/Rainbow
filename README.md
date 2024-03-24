@@ -121,6 +121,7 @@ https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip
 ## To Run
 
 ### Start Kubernetes
+      minikube delete
       minikube start
       kubectl cluster-info
 
