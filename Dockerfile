@@ -28,10 +28,10 @@ RUN wget https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip \
 
 # put in the correct config
 WORKDIR /Directory-main/src/main/resources
-RUN mv docker.properties db.properties \
+RUN mv docker.properties db.properties
 
 # Make port 8080 available to the world outside this container
-EXPOSE 8080
+#EXPOSE 8080
 
 
 #CMD ["/usr/bin/supervisord","-n"]
