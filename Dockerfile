@@ -24,6 +24,7 @@ RUN curl -fsSL $MAVEN_PREFIX/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION
 RUN wget https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip \
     && unzip main.zip  \
     && cd Directory-main  \
+    && mv src/main/resources/prod.properties src/main/resources/db.properties \
     && mvn clean package
 
 # put in the correct config
