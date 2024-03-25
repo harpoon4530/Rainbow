@@ -1,22 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: directory-mysql
+  name: mysql
 spec:
   selector:
     matchLabels:
-      app: directory-mysql
+      app: mysql
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: directory-mysql
+        app: mysql
     spec:
       containers:
         - image: mysql:latest
           name: mysql
           env:
+            # Use secret in real usage
             - name: MYSQL_ROOT_PASSWORD
               value: password
           ports:

@@ -150,12 +150,10 @@ This needs to be done before starting the application; since it depends on a val
 1. Create persistent volume
    
         kubectl apply -f mysql-pv.yaml
-
    
 2. Create the Persistent Volume Claim
 
         kubectl apply -f mysql-pvc.yaml
-
 
 3. Create the Deployment
 
@@ -175,19 +173,30 @@ This needs to be done before starting the application; since it depends on a val
     **Pod:**
    
         kubectl get pods
+        kubectl get pods -l app=mysql 
+        kubectl describe pvc mysql-pv
+        kubectl describe deployment mysql
 
-    **Service:**
+   **Services:**
         
-        kubectl get services
+           kubectl get services
 
-    **To check the status, execute:**
+   **To check the status and log in manually, execute:**
 
-        docker run -d --name mysql-container -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 mysql:latest
+[//]: # (        docker run -d --name mysql-container -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 mysql:latest)
+[//]: # (     kubectl run -it --rm --image=mysql:latest --restart=Never mysql-client -- mysql -h mysql --password="password")
 
+[//]: # (     kubectl run -it --rm --image=mysql:latest --restart=Never mysql-client -- mysql -h mysql --password="password")
 
-        kubectl run -it --rm --image=mysql:latest --restart=Never mysql-client -- mysql -h mysql --password="password"
+        kubectl get pods
+        kubectl exec --stdin --tty mysql-{instance} -- /bin/bash
+        mysql -ppassword
 
-        kubectl run -it --rm --image=mysql:latest --restart=Never mysql-client -- mysql -h mysql --password="root"
+   **To Delete**
+
+      kubectl delete deployment,svc mysql
+      kubectl delete pvc mysql-pv-claim
+      kubectl delete pv mysql-pv-volume
 
 ### Start App
 
