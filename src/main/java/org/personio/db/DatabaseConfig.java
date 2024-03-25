@@ -23,6 +23,7 @@ public class DatabaseConfig {
 
             // Load the properties file
             properties.load(input);
+            logger.info("DB url: {}", properties.getProperty("db.url"));
         } catch (IOException e) {
             e.printStackTrace();
         }
