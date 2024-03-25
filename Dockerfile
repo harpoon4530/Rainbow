@@ -39,5 +39,5 @@ RUN wget https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip \
 #CMD ["java", "-jar", "./target/PersonIo.jar >/tmp/log.txt  2>&1"]
 
 WORKDIR /Directory-main
-CMD ["java -jar ./target/PersonIo.jar >/tmp/log.txt 2>&1"]
+#CMD ["java -jar ./target/PersonIo.jar >/tmp/log.txt 2>&1"]
 CMD ["/usr/bin/supervisord","-n"]
