@@ -27,7 +27,7 @@ RUN wget https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip \
     && mvn clean package
 
 # put in the correct config
-WORKDIR /Directory-main/src/main/resources
+WORKDIR /Directory-main/target/classes
 RUN mv docker.properties db.properties
 
 # Make port 8080 available to the world outside this container
