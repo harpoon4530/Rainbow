@@ -1,3 +1,7 @@
+docker run -d --name mysql-container -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 mysql:latest
+
+
+
 ## To Build/Run on OS X
 You need to have OpenJDK installed: _openjdk-21_
 
