@@ -4,7 +4,7 @@ metadata:
   name: directory-service
 spec:
   selector:
-    app: directory-app
+    app: directory
   ports:
       - protocol: TCP
         port: 8080
