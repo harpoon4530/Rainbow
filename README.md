@@ -206,7 +206,7 @@ MySQL credentials are: (<user:password>)    (<root:password>)
 ## Perform the following steps to deploy spring boot app on Minikube :
 
 1. Clone this repository
-2. From the terminal cd into your project directory and build project using ``` mvn clean build ```
+2. From the terminal cd into your project directory and build project using ``` mvn clean package ```
 3. Start docker on the system
 4. Start minikube using ``` minikube start --driver=docker ```
 5. Enable docker env using command :  ``` eval $(minikube docker-env)  ```  [Command Reference](https://minikube.sigs.k8s.io/docs/commands/docker-env/)
