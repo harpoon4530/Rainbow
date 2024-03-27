@@ -27,6 +27,8 @@ RUN wget https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip \
     && mv src/main/resources/prod.properties src/main/resources/db.properties \
     && mvn clean package
 
+RUN mkdir -p /var/log/supervisor
+
 # put in the correct config
 #WORKDIR /Directory-main/target/classes
 #RUN mv docker.properties db.properties
@@ -34,11 +36,10 @@ RUN wget https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip \
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
 
-
 #CMD ["/usr/bin/supervisord","-n"]
 #CMD ["java", "-jar", "./target/PersonIo.jar >/tmp/log.txt  2>&1"]
 
 WORKDIR /Directory-main
 #CMD ["java",  "-jar", "./target/PersonIo.jar",  ">/tmp/log.txt 2>&1"]
 #CMD ["java -jar ./target/PersonIo.jar >/tmp/log.txt 2>&1"]
-CMD ["/usr/bin/supervisord","-n"]
+CMD ["/usr/bin/supervisord","-n", "supervisord.conf"]
