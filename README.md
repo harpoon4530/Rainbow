@@ -112,11 +112,6 @@ https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/
     
     kubectl cluster-info
 
-**Install dashboard**
-
-      kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
-      kubectl proxy
-      
 
 
 **Download the Repo:**
@@ -138,19 +133,6 @@ https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip
 [comment]: <> (Kubernetes control plane is running at https://192.168.64.2:8443)
 
 [comment]: <> (CoreDNS is running at https://192.168.64.2:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy)
-
-### K8 Dashboard
-
-      kubectl apply -f dashboard-adminuser.yaml
-      kubectl -n kubernetes-dashboard create token admin-user
-
-      ^^ Copy the toke value
-
-      kubectl proxy
-
-
-      http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login
-      http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/workloads?namespace=default
 
 
 
@@ -220,10 +202,6 @@ This needs to be done before starting the application; since it depends on a val
 
 MySQL credentials are: (<user:password>)    (<root:password>) 
 
-
-      cd k8s
-      kubectl apply -f directory_service.yaml
-      kubectl apply -f directory_deployment.yaml
 
 ## Perform the following steps to deploy spring boot app on Minikube :
 
