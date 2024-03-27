@@ -32,12 +32,13 @@ RUN wget https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip \
 #RUN mv docker.properties db.properties
 
 # Make port 8080 available to the world outside this container
-#EXPOSE 8080
+EXPOSE 8080
 
 
 #CMD ["/usr/bin/supervisord","-n"]
 #CMD ["java", "-jar", "./target/PersonIo.jar >/tmp/log.txt  2>&1"]
 
 WORKDIR /Directory-main
+CMD ["java",  "-jar", "./target/PersonIo.jar",  ">/tmp/log.txt 2>&1"]
 #CMD ["java -jar ./target/PersonIo.jar >/tmp/log.txt 2>&1"]
-CMD ["/usr/bin/supervisord","-n"]
+#CMD ["/usr/bin/supervisord","-n"]
