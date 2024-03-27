@@ -27,10 +27,10 @@ RUN wget https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip \
     && mv src/main/resources/prod.properties src/main/resources/db.properties \
     && mvn clean package
 
-WORKDIR /Directory-main
-RUN mkdir -p /var/log/supervisor
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-COPY supervisord.conf /etc/supervisord.conf
+# WORKDIR /Directory-main
+# RUN mkdir -p /var/log/supervisor
+# COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# COPY supervisord.conf /etc/supervisord.conf
 
 # put in the correct config
 #WORKDIR /Directory-main/target/classes
