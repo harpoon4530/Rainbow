@@ -28,6 +28,9 @@ RUN wget https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip \
     && mvn clean package
 
 RUN mkdir -p /var/log/supervisor
+RUN mkdir -p /etc/supervisor/conf.d
+# Copy supervisor configs
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # put in the correct config
 #WORKDIR /Directory-main/target/classes
