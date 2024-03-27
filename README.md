@@ -203,6 +203,25 @@ This needs to be done before starting the application; since it depends on a val
 MySQL credentials are: (<user:password>)    (<root:password>) 
 
 
+## Perform the following steps to deploy spring boot app on Minikube :
+
+1. Clone this repository
+2. From the terminal cd into your project directory and build project using ``` mvn clean build ```
+3. Start docker on the system
+4. Start minikube using ``` minikube start --driver=docker ```
+5. Enable docker env using command :  ``` eval $(minikube docker-env)  ```  [Command Reference](https://minikube.sigs.k8s.io/docs/commands/docker-env/)
+6. Build docker image in minikube : ``` docker build -t directory:latest . ```
+7. To see the created image run command : ``` minikube image ls ```
+8. To deploy on kubernetes cluster run command : ``` helm install mychart ytchart ```
+9. To see deployed helm chart : ``` helm ls ```
+10. Check deployments : ``` kubectl get all ```
+11. To connect the database run ``` kubectl get services ``` and copy my-sql service name. Then run command like this : ``` minikube service mychart-mysql-service --url ```
+12. Then connect the database using the IP address and port returned by Step 10.  (If you get error while connecting database, then watch the video for more information)
+13. To call Rest api's, open a new Terminal, and run command : ``` minikube tunnel ``` and call api from the Postman or any of your favourite tool.
+14. Remove or delete deployed setup from kubernetes cluster : ``` helm uninstall mychart ```
+15. Stop minikube using : ``` minikube stop ```
+
+
 
 
 

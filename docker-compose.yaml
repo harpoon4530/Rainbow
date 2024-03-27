@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: temp
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql  # Volume configuration for MySQL data
+    networks:
+      - spring-mysql-network
+
+  directory:
+    build:
+      context: k8s
+      dockerfile: Dockerfile
+    container_name: directory-container
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE}?createDatabaseIfNotExist=true&characterEncoding=UTF-8&useUnicode=true&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    networks:
+      - mysql-network
+
+networks:
+  mysql-network:
+    driver: bridge
+
+volumes:
+  mysql-data:  # Define a named volume for MySQL data persistence

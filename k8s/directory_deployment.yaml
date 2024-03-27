@@ -13,7 +13,7 @@ spec:
         app: directory-app
     spec:
       containers:
-          - name: personio-container
+          - name: directory-container
             image: directory:latest
             ports:
               - containerPort: 8080
