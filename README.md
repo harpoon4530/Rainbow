@@ -113,7 +113,6 @@ https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/
     kubectl cluster-info
 
 
-
 **Download the Repo:**
 
 https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip
@@ -176,6 +175,8 @@ This needs to be done before starting the application; since it depends on a val
         kubectl get pods -l app=mysql 
         kubectl describe pvc mysql-pv
         kubectl describe deployment mysql
+      
+         kubectl logs 
 
    **Services:**
         

@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: personio
+  name: directory-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: directory-app
+      app: mysql
   template:
     metadata:
       labels:
