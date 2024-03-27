@@ -211,6 +211,7 @@ MySQL credentials are: (<user:password>)    (<root:password>)
 4. Start minikube using ``` minikube start --driver=docker ```
 5. Enable docker env using command :  ``` eval $(minikube docker-env)  ```  [Command Reference](https://minikube.sigs.k8s.io/docs/commands/docker-env/)
 6. Build docker image in minikube : ``` docker build -t directory:latest . ```
+7. Run built image ``` docker-compose up ```
 7. To see the created image run command : ``` minikube image ls ```
 8. To deploy on kubernetes cluster run command : ``` helm install mychart ytchart ```
 9. To see deployed helm chart : ``` helm ls ```
@@ -245,6 +246,7 @@ Proper class abstraction
 Exception handling
 More tests
 Linter tool
+Logrotated
 
 
 

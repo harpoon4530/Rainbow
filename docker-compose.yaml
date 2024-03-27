@@ -5,20 +5,20 @@ services:
     image: mysql:latest
     container_name: mysql-container
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: temp
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql  # Volume configuration for MySQL data
     networks:
-      - spring-mysql-network
+      - mysql-network
 
   directory:
     build:
-      context: k8s
+      context: .
       dockerfile: Dockerfile
     container_name: directory-container
     depends_on:
