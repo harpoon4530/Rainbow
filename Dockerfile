@@ -20,19 +20,19 @@ RUN curl -fsSL $MAVEN_PREFIX/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION
   && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
-# copy files from cwd to docker
-RUN wget https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip \
-    && unzip main.zip  \
-    && cd Directory-main  \
-    && mv src/main/resources/prod.properties src/main/resources/db.properties \
-    && mvn clean package
-
 # setup supervisord
 RUN mkdir -p /var/log/supervisord/
 RUN mkdir -p /etc/supervisor/conf.d
 RUN mkdir -p /tmp/log/supervisord
 # Copy supervisor configs
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# copy files from cwd to docker
+RUN wget https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip \
+    && unzip main.zip  \
+    && cd Directory-main  \
+    && mv src/main/resources/prod.properties src/main/resources/db.properties \
+    && mvn clean package
 
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
