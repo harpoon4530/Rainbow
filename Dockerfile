@@ -45,4 +45,4 @@ EXPOSE 8080
 WORKDIR /Directory-main
 #CMD ["java",  "-jar", "./target/PersonIo.jar",  ">/tmp/log.txt 2>&1"]
 #CMD ["java -jar ./target/PersonIo.jar >/tmp/log.txt 2>&1"]
-CMD ["/usr/bin/supervisord","-n", "supervisord.conf"]
+CMD ["/usr/bin/supervisord","-n"]
