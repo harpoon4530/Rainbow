@@ -29,6 +29,7 @@ RUN wget https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip \
 
 RUN mkdir -p /var/log/supervisor
 RUN mkdir -p /etc/supervisor/conf.d
+RUN mkdir /tmp/log/supervisord
 # Copy supervisor configs
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
