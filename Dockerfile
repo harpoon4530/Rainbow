@@ -27,7 +27,7 @@ RUN wget https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip \
     && mv src/main/resources/prod.properties src/main/resources/db.properties \
     && mvn clean package
 
-RUN mkdir -p /var/log/supervisor
+RUN mkdir -p /var/log/supervisord/
 RUN mkdir -p /etc/supervisor/conf.d
 RUN mkdir -p /tmp/log/supervisord
 # Copy supervisor configs
