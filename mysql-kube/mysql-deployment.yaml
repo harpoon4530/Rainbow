@@ -14,8 +14,8 @@ spec:
         app: mysql
     spec:
       containers:
-        - image: mysql:latest
-          name: mysql
+        - name: mysql
+          image: mysql:latest
           env:
             # Use secret in real usage
             - name: MYSQL_ROOT_PASSWORD

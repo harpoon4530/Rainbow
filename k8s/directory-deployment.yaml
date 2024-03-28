@@ -20,7 +20,7 @@ spec:
               - containerPort: 8080
             env:
               - name: SPRING_DATASOURCE_URL
-                value: {{ include "my-spring-app.fullMySQLConnectionURL" . | quote }}
+                value: jdbc:mysql://mysql:3306?useSSL=false
 #              - name: SPRING_DATASOURCE_USERNAME
 #                valueFrom:
 #                  secretKeyRef:

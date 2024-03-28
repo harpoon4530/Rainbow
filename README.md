@@ -134,6 +134,11 @@ https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip
 [comment]: <> (CoreDNS is running at https://192.168.64.2:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy)
 
 
+### Namespace
+    kubectl config set-context --current --namespace=personio
+    # Validate it
+    kubectl config view --minify | grep namespace:
+
 
 ### Start MySQL
 
@@ -172,6 +177,7 @@ This needs to be done before starting the application; since it depends on a val
     **Pod:**
    
         kubectl get pods
+        kubectl get svc
         kubectl get pods -l app=mysql 
         kubectl describe pvc mysql-pv
         kubectl describe deployment mysql
@@ -199,7 +205,15 @@ This needs to be done before starting the application; since it depends on a val
       kubectl delete pvc mysql-pv-claim
       kubectl delete pv mysql-pv-volume
 
+      minikube delete && minikube start && docker system prune -a && docker build --tag directory .
+
 ### Start App
+
+       kubectl apply -f app-deployment.yaml
+       kubectl get deployments
+       kubectl get pods
+       kubectl get svc
+         
 
 MySQL credentials are: (<user:password>)    (<root:password>) 
 
