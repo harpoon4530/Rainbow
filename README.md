@@ -125,6 +125,7 @@ https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip
 ### Start Kubernetes
       minikube delete
       minikube start
+      minikube dashboard
       kubectl cluster-info
 
 [comment]: <> (      minikube start --driver=docker)
@@ -197,6 +198,7 @@ This needs to be done before starting the application; since it depends on a val
 
         kubectl get pods
         kubectl exec --stdin --tty mysql-{instance} -- /bin/bash
+        kubectl exec --stdin --tty mysql-{instance} -- mysql -ppassword
         mysql -ppassword
 
    **To Delete**
@@ -216,6 +218,13 @@ This needs to be done before starting the application; since it depends on a val
          
 
 MySQL credentials are: (<user:password>)    (<root:password>) 
+
+### Kubernets dashboard
+       kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+       kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
+       
+       Dashboard will be available at:
+       https://localhost:8443
 
 
 ## Perform the following steps to deploy spring boot app on Minikube :
