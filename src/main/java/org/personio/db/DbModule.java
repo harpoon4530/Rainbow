@@ -36,7 +36,7 @@ public class DbModule {
         try {
             connection = DriverManager.getConnection(jdbcUrl, user, password);
         } catch (Exception e) {
-            logger.error("The database does now exist!!!!");
+            logger.error("The database does not exist!!!!");
             throw new RuntimeException("Cannot connect to DB; " + e.getMessage());
         }
 
