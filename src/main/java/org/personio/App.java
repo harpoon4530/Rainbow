@@ -1,16 +1,20 @@
 package org.personio;
 
+import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.HttpConfiguration;
+import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.personio.handlers.Directory;
-import org.personio.security.BasicAuth;
+import org.personio.handlers.CartServlet;
+import org.personio.handlers.DirectoryServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class App {
 
@@ -19,22 +23,33 @@ public class App {
     public static void main(String[] args) throws Exception {
 
         jetty = new Server(8080);
+        HttpConfiguration httpConfig = new HttpConfiguration();
+        httpConfig.setSendServerVersion(false);
+        HttpConnectionFactory httpFactory = new HttpConnectionFactory(httpConfig);
+
+        Injector injector = Guice.createInjector();
+
+
+
+
 
         ServletContextHandler servletContextHandler =
                 new ServletContextHandler(jetty, "/", true, true);
 
-        HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[]{servletContextHandler});
-        jetty.setHandler(handlers);
-
-        Injector injector = Guice.createInjector();
-
-        Directory directory = injector.getInstance(Directory.class);
+        //ServletHolder directoryHolder =
+        //        servletContextHandler.addServlet(directoryHolder);
+        DirectoryServlet directory = injector.getInstance(DirectoryServlet.class);
         servletContextHandler.addServlet(new ServletHolder(directory), "/directory/*");
 
+        ServletHolder cartHolder =
+                servletContextHandler.addServlet(CartServlet.class, "/cart/*");
+
+        //servletContextHandler.addServlet(Directory.class, "/directory");
+        //servletContextHandler.addServlet(new ServletHolder((Servlet) directory), "/directory/*");
+
         //TODO: this should be removed from here; Setup auth; Basic dGVzdDp1c2Vy
-        servletContextHandler.setSecurityHandler(
-                BasicAuth.basicAuth("test", "user", "Private!"));
+//        servletContextHandler.setSecurityHandler(
+//                BasicAuth.basicAuth("root", "password", "PersonIO!"));
 
         logger.info("Starting the server!!");
         jetty.start();

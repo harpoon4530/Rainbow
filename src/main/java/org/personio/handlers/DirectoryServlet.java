@@ -2,6 +2,11 @@ package org.personio.handlers;
 
 
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.personio.models.Employee;
@@ -15,26 +20,38 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+@Singleton
+public class DirectoryServlet extends BaseServlet {
 
-public class Directory extends BaseServlet {
+    private static final Logger logger = LoggerFactory.getLogger(DirectoryServlet.class);
 
-    private static final Logger logger = LoggerFactory.getLogger(Directory.class);
-
-    private final EmployeeModel employeeModel;
+    private EmployeeModel employeeModel;
+    @Inject
+    private static EmployeeModel em;
 
     private static final int bufferLength = 65536;
+
+
+//    public DirectoryServlet() {
+//        int i = 0;
+//        int j = 0;
+//    }
     @Inject
-    public Directory(EmployeeModel employeeModel) {
+    public DirectoryServlet(EmployeeModel employeeModel) {
+        super();
         this.employeeModel = employeeModel;
+//        try {
+//            init();
+//        } catch (ServletException e) {
+//            throw new RuntimeException(e);
+//        }
     }
+
 
     @Override
     public void doGet(
             HttpServletRequest request,
-            HttpServletResponse response)
-            throws IOException {
+            HttpServletResponse response) {
 
         String path = request.getPathInfo();
         String[] pathParts = path.split("/");
@@ -68,14 +85,15 @@ public class Directory extends BaseServlet {
 
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println("{ \"supervisor\": \"" + supervisor.getName() + "\"}");
+        try {
+            response.getWriter().println("{ \"supervisor\": \"" + supervisor.getName() + "\"}");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public void doPost(
-            HttpServletRequest request,
-            HttpServletResponse response)
-            throws IOException {
+    public void doPost(@NotNull HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         InputStreamReader isr =  new InputStreamReader(request.getInputStream(),"utf-8");
         BufferedReader br = new BufferedReader(isr);

@@ -253,7 +253,7 @@ MySQL credentials are: (<user:password>)    (<root:password>)
 
 User created with the following creds:
 username: test
-password: user
+password: password
 HTTP header: {Authorization: Basic dGVzdDp1c2Vy}
 
 To POST a new JSON file; use the example from the Postman collection:

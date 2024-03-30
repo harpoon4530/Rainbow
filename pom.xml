@@ -14,7 +14,7 @@
         <maven.compiler.source>${javaVersion}</maven.compiler.source>
         <maven.compiler.target>${javaVersion}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jettyVersion>9.3.6.v20151106</jettyVersion>
+        <jettyVersion>11.0.20</jettyVersion>
         <metricsVersion>3.1.2</metricsVersion>
         <guiceVersion>7.0.0</guiceVersion>
         <guavaVersion>33.1.0-jre</guavaVersion>
@@ -29,7 +29,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.13.0</version>
                 <configuration>
                     <source>${javaVersion}</source>
                     <target>${javaVersion}</target>
@@ -104,19 +104,23 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-server</artifactId>
-                <version>${jettyVersion}</version>
-            </plugin>
-
-
+<!--            <plugin>-->
+<!--                <groupId>org.eclipse.jetty</groupId>-->
+<!--                <artifactId>jetty-server</artifactId>-->
+<!--                <version>${jettyVersion}</version>-->
+<!--            </plugin>-->
         </plugins>
 
     </build>
 
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>3.1.5</version>
+        </dependency>
 
         <dependency>
             <groupId>junit</groupId>
@@ -299,6 +303,11 @@
             <artifactId>mockito-all</artifactId>
             <version>1.9.5</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty.toolchain</groupId>
+            <artifactId>jetty-jakarta-servlet-api</artifactId>
+            <version>5.0.2</version>
         </dependency>
 
     </dependencies>

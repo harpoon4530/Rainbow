@@ -2,7 +2,6 @@ package org.personio.db;
 
 import com.google.inject.Inject;
 
-import org.personio.handlers.Directory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +9,7 @@ import java.sql.*;
 
 public class DbModule {
 
-    private static final Logger logger = LoggerFactory.getLogger(Directory.class);
+    private static final Logger logger = LoggerFactory.getLogger(DbModule.class);
 
     private final String jdbcUrl;
     private final String user;
