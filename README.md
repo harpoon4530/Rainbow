@@ -184,6 +184,10 @@ This needs to be done before starting the application; since it depends on a val
         kubectl describe deployment mysql
       
          kubectl logs 
+    
+    **Check to see if service is running:**
+
+         mysql --host localhost  --port 30000 -u root -ppassword
 
    **Services:**
         
