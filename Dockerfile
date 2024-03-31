@@ -1,6 +1,6 @@
 FROM ubuntu:23.10
 
-ENV MAVEN_VERSION "3.3.9"
+ENV MAVEN_VERSION "3.6.3"
 ENV MAVEN_HOME "/usr/share/maven"
 ENV MAVEN_PREFIX "http://archive.apache.org/dist/maven/maven-3"
 ENV INSTALL_PREFIX "apt-get install -y --no-install-recommends"
@@ -30,7 +30,7 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 # copy files from cwd to docker
 RUN wget https://github.com/harpoon4530/Directory/archive/refs/heads/main.zip \
     && unzip main.zip  \
-    && cd Directory-main  \
+    && cd Directory-main \
     && mv src/main/resources/prod.properties src/main/resources/db.properties \
     && mvn clean package
 
