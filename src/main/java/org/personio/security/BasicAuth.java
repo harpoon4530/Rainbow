@@ -14,32 +14,28 @@ public class BasicAuth {
 
     public static final SecurityHandler basicAuth(String username, String password, String realm) {
 
-        HashLoginService loginService = new HashLoginService();
-
         UserStore userStore = new UserStore();
         userStore.addUser(username, new Password(password), new String[] { "users"});
 
-        HashLoginService l = new HashLoginService();
-        l.setUserStore(userStore);
-        //l.putUser(username, Credential.getCredential(password), new String[] {"user"});
-
-        l.setName(realm);
+        HashLoginService hashLoginService = new HashLoginService(realm);
+        hashLoginService.setUserStore(userStore);
 
         Constraint constraint = new Constraint();
         constraint.setName(Constraint.__BASIC_AUTH);
-        constraint.setRoles(new String[]{"user"});
+        constraint.setRoles(new String[]{"users"});
+        constraint.setName(username);
         constraint.setAuthenticate(true);
 
-        ConstraintMapping cm = new ConstraintMapping();
-        cm.setConstraint(constraint);
-        cm.setPathSpec("/*");
+        ConstraintMapping constraintMapping = new ConstraintMapping();
+        constraintMapping.setConstraint(constraint);
+        constraintMapping.setPathSpec("/*");
 
-        ConstraintSecurityHandler csh = new ConstraintSecurityHandler();
-        csh.setAuthenticator(new BasicAuthenticator());
-        csh.setRealmName("myrealm");
-        csh.addConstraintMapping(cm);
-        csh.setLoginService(l);
+        ConstraintSecurityHandler constraintSecurityHandler = new ConstraintSecurityHandler();
+        constraintSecurityHandler.setAuthenticator(new BasicAuthenticator());
+        constraintSecurityHandler.setLoginService(hashLoginService);
+        constraintSecurityHandler.addConstraintMapping(constraintMapping);
+        constraintSecurityHandler.setRealmName(realm);
 
-        return csh;
+        return constraintSecurityHandler;
     }
 }

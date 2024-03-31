@@ -10,6 +10,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.personio.handlers.CartServlet;
 import org.personio.handlers.DirectoryServlet;
+import org.personio.security.BasicAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,27 +30,17 @@ public class App {
 
         Injector injector = Guice.createInjector();
 
-
-
-
-
         ServletContextHandler servletContextHandler =
                 new ServletContextHandler(jetty, "/", true, true);
 
+        //TODO: this should be removed from here; Setup auth; Basic cm9vdDpwYXNzd29yZA==
+        servletContextHandler.setSecurityHandler(
+                BasicAuth.basicAuth("root", "password", "PersonIO!"));
+
         //ServletHolder directoryHolder =
         //        servletContextHandler.addServlet(directoryHolder);
-        DirectoryServlet directory = injector.getInstance(DirectoryServlet.class);
-        servletContextHandler.addServlet(new ServletHolder(directory), "/directory/*");
-
-        ServletHolder cartHolder =
-                servletContextHandler.addServlet(CartServlet.class, "/cart/*");
-
-        //servletContextHandler.addServlet(Directory.class, "/directory");
-        //servletContextHandler.addServlet(new ServletHolder((Servlet) directory), "/directory/*");
-
-        //TODO: this should be removed from here; Setup auth; Basic dGVzdDp1c2Vy
-//        servletContextHandler.setSecurityHandler(
-//                BasicAuth.basicAuth("root", "password", "PersonIO!"));
+        DirectoryServlet directoryServlet = injector.getInstance(DirectoryServlet.class);
+        servletContextHandler.addServlet(new ServletHolder(directoryServlet), "/directory/*");
 
         logger.info("Starting the server!!");
         jetty.start();

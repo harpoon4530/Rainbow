@@ -14,6 +14,9 @@ public abstract class BaseServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) {
 
+        String service = request.getAuthType();
+        String authTokenHeader = request.getHeader("Authorization");
+
         // Implement the shop cart functionality.
         int i = 0;
         int j = 0;
@@ -52,6 +55,8 @@ public abstract class BaseServlet extends HttpServlet {
     public abstract void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
     public abstract void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException;
+
+
 
 
 }
