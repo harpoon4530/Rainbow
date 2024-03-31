@@ -217,7 +217,9 @@ This needs to be done before starting the application; since it depends on a val
        kubectl get svc
          
 
-MySQL credentials are: (<user:password>)    (<root:password>) 
+#### MySQL credentials are: (<user:password>)    (<root:password>) 
+
+     mysql -uroot -ppassword
 
 ### Kubernets dashboard
        kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
