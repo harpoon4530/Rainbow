@@ -9,7 +9,7 @@ ENV INSTALL_PREFIX "apt-get install -y --no-install-recommends"
 RUN apt update
 
 # Install necessary tools and utilities
-RUN $INSTALL_PREFIX zip bzip2 fontconfig curl supervisor nginx wget unzip emacs mysql-server bash-completion
+RUN $INSTALL_PREFIX zip bzip2 fontconfig curl supervisor nginx wget unzip emacs mysql-server bash-completion dnsutils
 # install java
 RUN $INSTALL_PREFIX openjdk-21-jdk
 
