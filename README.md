@@ -25,9 +25,9 @@ Download dependencies
 
     mvn clean package
 
-    java -cp ./target/DirectoryJ-1.0-SNAPSHOT.jar org.rainbow.App
+    java -cp ./target/Rainbow-1.0-SNAPSHOT.jar org.rainbow.App
 
-    java -cp ./target/PersonIo.jar org.rainbow.App
+    java -cp ./target/Rainbow.jar org.rainbow.App
 
 Use the Postman collection under the Postman directory to send requests
 

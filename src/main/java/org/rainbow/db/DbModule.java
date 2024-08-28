@@ -12,8 +12,8 @@ public class DbModule {
     private static final Logger logger = LoggerFactory.getLogger(DbModule.class);
 
     private final String jdbcUrl;
-    //private final String user;
-    //private final String password;
+    private final String user;
+    private final String password;
 
     public final String dbName;
 
@@ -26,8 +26,8 @@ public class DbModule {
 
         // Get database credentials from DatabaseConfig class
         this.jdbcUrl = DatabaseConfig.getDbUrl();
-        //this.user = DatabaseConfig.getDbUsername();
-        //this.password = DatabaseConfig.getDbPassword();
+        this.user = DatabaseConfig.getDbUsername();
+        this.password = DatabaseConfig.getDbPassword();
 
         this.dbName = "rainbow";
         this.recordTable = "record";
@@ -51,7 +51,7 @@ public class DbModule {
             logger.info("Creating the table: {}", recordTable);
 
             String createDirTableQuery = "CREATE TABLE IF NOT EXISTS " + recordTable +
-                    " (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL" +
+                    " (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL" +
                     ", record VARCHAR(65536))";
 
             logger.info("Creating the db using the command: {}", createDirTableQuery);
