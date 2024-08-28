@@ -12,10 +12,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 public abstract class BaseServlet extends HttpServlet {
 
     private static final Logger logger = LoggerFactory.getLogger(BaseServlet.class);
@@ -27,35 +23,61 @@ public abstract class BaseServlet extends HttpServlet {
         String service = request.getAuthType();
         String authTokenHeader = request.getHeader("Authorization");
 
-        // Implement the shop cart functionality.
         String method = request.getMethod();
+
+        String recordIdStr = request.getPathInfo();
+
+        if (recordIdStr == null) {
+            logger.error("Invalid recordId: {}", recordIdStr);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        Integer recordId = null;
+        try {
+            recordId = getRecordId(recordIdStr);
+        } catch (Exception e) {
+            logger.error("Cannot extract recordId from: {}", recordIdStr);
+        }
+
         switch(method) {
             case "GET":
-                doGet("GET", request, response);
+                doGet("GET", recordId, request, response);
                 break;
             case "POST":
-                doPost("POST", request, response);
+                doPost("POST", recordId, request, response);
                 break;
             default:
                 throw new UnsupportedOperationException("We only support [GET|POST]");
         }
     }
 
-    public void doGet(String method, HttpServletRequest request, HttpServletResponse response) {
+    private Integer getRecordId(String str) {
+        Integer recordId = null;
+        try {
+            recordId = Integer.parseInt(str.split("\\/")[1]);
+        } catch (Exception e) {
+            logger.error("Cannot parse recordId: {}", str);
+            throw new RuntimeException();
+        }
+        return recordId;
+    }
+
+    public void doGet(String method, Integer recordId, HttpServletRequest request, HttpServletResponse response) {
         //timers etc
         try {
-            doGet(request, response);
+            doGet(recordId, request, response);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void doPost(String method, HttpServletRequest request, HttpServletResponse response) {
-
+    public void doPost(String method, Integer recordId, HttpServletRequest request, HttpServletResponse response) {
 
         try {
-            doPost(request, response);
+            doPost(recordId, request, response);
         } catch (IOException e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             throw new RuntimeException(e);
         }
     }
@@ -75,11 +97,8 @@ public abstract class BaseServlet extends HttpServlet {
 
         JSONObject readJson;
         String jsonString = buf.toString();
-
-        //JSONObject jsonObject = new JSONObject();
         try {
             readJson = new JSONObject(jsonString);
-            //jsonObject = processValidJson(readJson);
         } catch (JSONException e) {
             logger.error("Unable to parse the JSON string:{}", jsonString);
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -90,29 +109,8 @@ public abstract class BaseServlet extends HttpServlet {
         return readJson;
     }
 
-//    private final JSONObject processValidJson(JSONObject json) {
-//
-//        Map<String, String> jsonMap = new HashMap<>();
-//
-//        Iterator<String> keys = json.keys();
-//
-//        while(keys.hasNext()) {
-//            String key = keys.next();
-//            String value = json.getString(key);
-//            jsonMap.put(key, value);
-//            logger.info("Record: employee:{}; supervisor:{}", key, value);
-//        }
-//        //writeValidJsonToDB(jsonMap);
-//
-//        JSONObject jsonObject = null;
-//        return jsonObject;
-//    }
+    public abstract void doGet(Integer recordId, HttpServletRequest request, HttpServletResponse response) throws IOException;
 
-    public abstract void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException;
-
-    public abstract void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException;
-
-
-
+    public abstract void doPost(Integer recordId, HttpServletRequest request, HttpServletResponse response) throws IOException;
 
 }

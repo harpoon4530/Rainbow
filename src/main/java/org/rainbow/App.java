@@ -7,8 +7,7 @@ import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.rainbow.handlers.RecordServlet;
-import org.rainbow.security.BasicAuth;
+import org.rainbow.handlers.RecordServletV1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,18 +27,8 @@ public class App {
         ServletContextHandler servletContextHandler =
                 new ServletContextHandler(jetty, "/", true, true);
 
-        //TODO: this should be removed from here; Setup auth; Basic cm9vdDpwYXNzd29yZA==
-//        servletContextHandler.setSecurityHandler(
-//                BasicAuth.basicAuth("root", "password", "Rainbow!"));
-
-        //ServletHolder directoryHolder =
-        //        servletContextHandler.addServlet(directoryHolder);
-//        DirectoryServlet directoryServlet = injector.getInstance(DirectoryServlet.class);
-//        servletContextHandler.addServlet(new ServletHolder(directoryServlet), "/directory/*");
-
-        RecordServlet recordServlet = injector.getInstance(RecordServlet.class);
-        servletContextHandler.addServlet(new ServletHolder(recordServlet), "/api/v1/record/*");
-
+        RecordServletV1 recordServletV1 = injector.getInstance(RecordServletV1.class);
+        servletContextHandler.addServlet(new ServletHolder(recordServletV1), "/api/v1/record/*");
 
         logger.info("Starting the server!!");
         jetty.start();
