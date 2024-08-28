@@ -1,4 +1,4 @@
-package org.personio.db;
+package org.rainbow.db;
 
 import com.google.inject.Inject;
 
@@ -12,12 +12,12 @@ public class DbModule {
     private static final Logger logger = LoggerFactory.getLogger(DbModule.class);
 
     private final String jdbcUrl;
-    private final String user;
-    private final String password;
+    //private final String user;
+    //private final String password;
 
     public final String dbName;
 
-    public final String directoryTable;
+    public final String recordTable;
 
     private final Connection connection;
 
@@ -26,14 +26,14 @@ public class DbModule {
 
         // Get database credentials from DatabaseConfig class
         this.jdbcUrl = DatabaseConfig.getDbUrl();
-        this.user = DatabaseConfig.getDbUsername();
-        this.password = DatabaseConfig.getDbPassword();
+        //this.user = DatabaseConfig.getDbUsername();
+        //this.password = DatabaseConfig.getDbPassword();
 
-        this.dbName = "temp";
-        this.directoryTable = "employee_directory";
+        this.dbName = "rainbow";
+        this.recordTable = "record";
 
         try {
-            connection = DriverManager.getConnection(jdbcUrl, user, password);
+            connection = DriverManager.getConnection(jdbcUrl);
         } catch (Exception e) {
             logger.error("The database does not exist!!!!");
             throw new RuntimeException("Cannot connect to DB; " + e.getMessage());
@@ -47,26 +47,12 @@ public class DbModule {
     }
 
     public void createDatabaseAndTables() {
-        String createDbQuery = "CREATE DATABASE IF NOT EXISTS " + dbName;
-        Statement st = null;
-
         try {
-            Statement createDbStmt = connection.createStatement();
-            int rs = createDbStmt.executeUpdate(createDbQuery);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+            logger.info("Creating the table: {}", recordTable);
 
-        try {
-            Statement stmt = connection.createStatement();
-            stmt.execute("use " + dbName + ";");
-            stmt.close();
-
-            logger.info("Creating the table: {}", directoryTable);
-
-            String createDirTableQuery = "CREATE TABLE IF NOT EXISTS " + dbName + "." + directoryTable +
-                    " (ID BIGINT PRIMARY KEY" +
-                    " NOT NULL AUTO_INCREMENT , employee VARCHAR(150), supervisor VARCHAR(150))";
+            String createDirTableQuery = "CREATE TABLE IF NOT EXISTS " + recordTable +
+                    " (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL" +
+                    ", record VARCHAR(65536))";
 
             logger.info("Creating the db using the command: {}", createDirTableQuery);
 
@@ -75,8 +61,6 @@ public class DbModule {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
 }

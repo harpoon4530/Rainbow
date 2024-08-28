@@ -1,4 +1,4 @@
-package org.personio.handlers;
+package org.rainbow.handlers;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,8 +18,6 @@ public abstract class BaseServlet extends HttpServlet {
         String authTokenHeader = request.getHeader("Authorization");
 
         // Implement the shop cart functionality.
-        int i = 0;
-        int j = 0;
         String method = request.getMethod();
         switch(method) {
             case "GET":

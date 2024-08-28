@@ -1,6 +1,5 @@
-package org.personio;
+package org.rainbow;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.eclipse.jetty.server.HttpConfiguration;
@@ -8,14 +7,10 @@ import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.personio.handlers.CartServlet;
-import org.personio.handlers.DirectoryServlet;
-import org.personio.security.BasicAuth;
+import org.rainbow.handlers.RecordServlet;
+import org.rainbow.security.BasicAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class App {
 
@@ -34,13 +29,17 @@ public class App {
                 new ServletContextHandler(jetty, "/", true, true);
 
         //TODO: this should be removed from here; Setup auth; Basic cm9vdDpwYXNzd29yZA==
-        servletContextHandler.setSecurityHandler(
-                BasicAuth.basicAuth("root", "password", "PersonIO!"));
+//        servletContextHandler.setSecurityHandler(
+//                BasicAuth.basicAuth("root", "password", "Rainbow!"));
 
         //ServletHolder directoryHolder =
         //        servletContextHandler.addServlet(directoryHolder);
-        DirectoryServlet directoryServlet = injector.getInstance(DirectoryServlet.class);
-        servletContextHandler.addServlet(new ServletHolder(directoryServlet), "/directory/*");
+//        DirectoryServlet directoryServlet = injector.getInstance(DirectoryServlet.class);
+//        servletContextHandler.addServlet(new ServletHolder(directoryServlet), "/directory/*");
+
+        RecordServlet recordServlet = injector.getInstance(RecordServlet.class);
+        servletContextHandler.addServlet(new ServletHolder(recordServlet), "/api/v1/record/*");
+
 
         logger.info("Starting the server!!");
         jetty.start();

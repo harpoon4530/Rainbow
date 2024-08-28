@@ -1,4 +1,4 @@
-package org.personio.handlers;
+package org.rainbow.handlers;
 
 import junit.framework.TestCase;
 import org.json.JSONArray;
