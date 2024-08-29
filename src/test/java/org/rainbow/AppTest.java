@@ -1,5 +1,6 @@
 package org.rainbow;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
@@ -65,7 +66,7 @@ public class AppTest {
         // Try accessing empty record
         logger.info("Sending the HTTP GET request");
         response = sendHTTPGETRequest(1);
-        Assert.assertEquals(404, response.statusCode());
+        Assert.assertEquals(HttpServletResponse.SC_NOT_FOUND, response.statusCode());
 
 
         // TEST INSERT
