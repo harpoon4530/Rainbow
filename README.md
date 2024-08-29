@@ -142,6 +142,79 @@ backend must delete that key of the record.
 ```
 
 
+public static void main(String[] args) {
+System.out.println("Hello World");
+}
+
+LinkedHashmap map = new LinkedHashMap<Integer, ObjectType>();
+
+public void map(Object object) {
+
+
+public class ObjectType {
+enum Type {
+INTEGER,
+BOOLEAN,
+OBJECT,
+ARRAY,
+MAP,
+...
+}
+Type type;
+
+    boolean bool;
+    integer int;
+    String s;
+    Map<Key, ObjectType> map;
+    List<ObjectType> list
+}
+
+ObjectType objType = new ObjectType();
+
+
+public ObjectType convert(Object obj) {
+
+ObjectType objType = new ObjectType();
+
+switch(Object.instance()) {
+case String:
+objType.string = obj;
+objType.type = ObjectType.STRING;        
+break;
+case Integer:
+objType.string = obj;
+objType.type = ObjectType.INTEGER;    
+break;
+case Map:
+Map<Key, ObjectType> map = new HashMap<Key, ObjectType>();
+for (Entry e: obj.entrySet() {
+ObjectType o1 = convert(e.getValue());    
+map.put(e.getKey(), o1);
+
+      if (o1.equals(map)) {
+        break;
+      }
+    }
+   
+    break;
+
+case List:
+break;
+
+    default:
+      break;
+
+
+    return objectType; 
+}
+
+
+}
+
+
+}
+
+
 
 
 
