@@ -8,6 +8,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.rainbow.handlers.RecordServletV1;
+import org.rainbow.handlers.RecordServletV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +33,10 @@ public class App {
 
         RecordServletV1 recordServletV1 = injector.getInstance(RecordServletV1.class);
         servletContextHandler.addServlet(new ServletHolder(recordServletV1), "/api/v1/record/*");
+
+        RecordServletV2 recordServletV2 = injector.getInstance(RecordServletV2.class);
+        servletContextHandler.addServlet(new ServletHolder(recordServletV1), "/api/v2/record/*");
+
 
         logger.info("Starting the server!!");
         jetty.start();

@@ -3,6 +3,7 @@ package org.rainbow.handlers;
 import com.google.inject.Inject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.rainbow.models.RecordModel;
 import org.slf4j.Logger;
@@ -60,24 +61,29 @@ public class RecordServletV1 extends BaseServlet {
         }
         logger.info("The read json string is: {}", json);
 
-        JSONObject written = null;
+        JSONObject newObject = null;
 
         // read existing value and apply diff if exists
         JSONObject existingObject = recordModel.readFromDb(recordId);
+        JSONObject existingObjectClone = recordModel.readFromDb(recordId);
+
         if (existingObject == null) {
+            logger.info("The existing object is null");
             // save the record as is
-            written = json;
+            newObject = json;
         } else {
+            logger.info("The existing object is: {}", existingObject.toString());
             // apply the diff
             JSONObject updatedJSON = applyDiff(existingObject, json);
-            written = updatedJSON;
+            newObject = updatedJSON;
         }
 
-        recordModel.writeToDb(recordId, written.toString());
+        // do a CAS update!
+        recordModel.writeToDb(recordId, newObject, existingObjectClone);
 
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println("{ \"status\": \"ok\", \"id\": "  + recordId + ", \"data\": " + written  + "}");
+        response.getWriter().println("{ \"status\": \"ok\", \"id\": "  + recordId + ", \"data\": " + newObject  + "}");
     }
 
 }

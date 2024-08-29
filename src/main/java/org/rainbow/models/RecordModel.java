@@ -58,16 +58,26 @@ public class RecordModel {
         return json;
     }
 
-    public void writeToDb(Integer id, String data) {
+    public void writeToDb(Integer id, JSONObject newData, JSONObject oldData) {
 
-        String row = "INSERT OR REPLACE INTO " + dbModule.recordTable + " (id, record) VALUES (" + id + ",'" + data + "')";
+        String row;
+        if (oldData == null) {
+            row = "INSERT OR REPLACE INTO " + dbModule.recordTable +
+                    " (id, record) VALUES (" + id + ",'" + newData.toString() + "')";
+        } else {
+            row = "UPDATE " + dbModule.recordTable + " SET record = '" +  newData.toString() +
+                    "' WHERE id = " + id  + " AND record = '" + oldData.toString()  + "';" ;
+        }
         logger.info("Executing the query: {}", row);
 
         try {
             Statement stmt = dbModule.getConnection().createStatement();
-            stmt.executeUpdate(row);
+            logger.info("Executing the query: {}", stmt.toString());
 
-            stmt = dbModule.getConnection().createStatement();
+            int result = stmt.executeUpdate(row);
+
+            // TODO: if (result == 0); means concurrent modification; think about handling that
+
             ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid()");
 
             if (rs.next()) {
