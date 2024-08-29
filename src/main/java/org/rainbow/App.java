@@ -16,7 +16,10 @@ public class App {
     private static final Logger logger = LoggerFactory.getLogger(App.class);
     private static Server jetty;
     public static void main(String[] args) throws Exception {
+        startServer();
+    }
 
+    public static void startServer() throws Exception {
         jetty = new Server(8080);
         HttpConfiguration httpConfig = new HttpConfiguration();
         httpConfig.setSendServerVersion(false);
@@ -33,7 +36,6 @@ public class App {
         logger.info("Starting the server!!");
         jetty.start();
         jetty.join();
-
     }
 
 }

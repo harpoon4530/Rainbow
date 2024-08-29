@@ -56,6 +56,11 @@ public abstract class BaseServlet extends HttpServlet {
         Integer recordId = null;
         try {
             recordId = Integer.parseInt(str.split("\\/")[1]);
+
+            if (recordId < 0) {
+                throw new RuntimeException("Invalid id given: " + recordId);
+            }
+
         } catch (Exception e) {
             logger.error("Cannot parse recordId: {}", str);
             throw new RuntimeException();
