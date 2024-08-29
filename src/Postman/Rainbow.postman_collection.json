@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "e45f944d-106d-4167-a401-c9f2e5db48be",
 		"name": "Rainbow",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "33881639"
 	},
 	"item": [
@@ -14,18 +14,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "password",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "root",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "password",
+								"username": "root"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -35,19 +27,7 @@
 								"disabled": true
 							}
 						],
-						"url": {
-							"raw": "localhost:8080/api/v1/record/1",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"record",
-								"1"
-							]
-						}
+						"url": "localhost:8080/api/v1/record/1"
 					},
 					"response": []
 				},
@@ -56,18 +36,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "password",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "root",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "password",
+								"username": "root"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -77,18 +49,7 @@
 								"disabled": true
 							}
 						],
-						"url": {
-							"raw": "localhost:8080/api/v1/record",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"record"
-							]
-						}
+						"url": "localhost:8080/api/v1/record"
 					},
 					"response": []
 				},
@@ -97,18 +58,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "password",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "root",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "password",
+								"username": "root"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -118,19 +71,7 @@
 								"disabled": true
 							}
 						],
-						"url": {
-							"raw": "localhost:8080/api/v1/record/1",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"record",
-								"1"
-							]
-						}
+						"url": "localhost:8080/api/v1/record/1"
 					},
 					"response": []
 				},
@@ -139,18 +80,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "password",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "root",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "password",
+								"username": "root"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -160,19 +93,7 @@
 								"disabled": true
 							}
 						],
-						"url": {
-							"raw": "localhost:8080/api/v1/record/1",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"record",
-								"1"
-							]
-						}
+						"url": "localhost:8080/api/v1/record/1"
 					},
 					"response": []
 				},
@@ -181,18 +102,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "password",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "root",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "password",
+								"username": "root"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -202,39 +115,19 @@
 								"disabled": true
 							}
 						],
-						"url": {
-							"raw": "localhost:8080/api/v1/record/100",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"record",
-								"100"
-							]
-						}
+						"url": "localhost:8080/api/v1/record/100"
 					},
 					"response": []
 				},
 				{
-					"name": "V1 Test - Post - Valid JSON",
+					"name": "V1 Test - Post - Valid JSON 1 INSERT",
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "password",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "root",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "password",
+								"username": "root"
+							}
 						},
 						"method": "POST",
 						"header": [
@@ -249,21 +142,96 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"Pete\": \"Nick\"\n}"
+							"raw": "{\"hello\":\"world\"}"
 						},
-						"url": {
-							"raw": "localhost:8080/api/v1/record/1",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"record",
-								"1"
-							]
-						}
+						"url": "localhost:8080/api/v1/record/1"
+					},
+					"response": []
+				},
+				{
+					"name": "V1 Test - Post - Valid JSON 2 - UPDATE",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "password",
+								"username": "root"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic dGVzdDp1c2Vy"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"hello\":\"world 2\",\"status\":\"ok\"}"
+						},
+						"url": "localhost:8080/api/v1/record/1"
+					},
+					"response": []
+				},
+				{
+					"name": "V1 Test - Post - Valid JSON 3 - DELETE",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "password",
+								"username": "root"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic dGVzdDp1c2Vy"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"hello\":null}"
+						},
+						"url": "localhost:8080/api/v1/record/1"
+					},
+					"response": []
+				},
+				{
+					"name": "V1 Test - Post - Valid JSON 2 - ADD FIELD",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "password",
+								"username": "root"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic dGVzdDp1c2Vy"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"hello\":\"world 5\",\"status\":\"ok\", \"test\":\"123\"}"
+						},
+						"url": "localhost:8080/api/v1/record/1"
 					},
 					"response": []
 				},
@@ -272,18 +240,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "password",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "root",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "password",
+								"username": "root"
+							}
 						},
 						"method": "POST",
 						"header": [
@@ -300,19 +260,7 @@
 							"mode": "raw",
 							"raw": "{\n  \"Pete\": \"Foobar\"\n}"
 						},
-						"url": {
-							"raw": "localhost:8080/api/v1/record/15",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"record",
-								"15"
-							]
-						}
+						"url": "localhost:8080/api/v1/record/15"
 					},
 					"response": []
 				},
@@ -321,18 +269,10 @@
 					"request": {
 						"auth": {
 							"type": "basic",
-							"basic": [
-								{
-									"key": "password",
-									"value": "password",
-									"type": "string"
-								},
-								{
-									"key": "username",
-									"value": "root",
-									"type": "string"
-								}
-							]
+							"basic": {
+								"password": "password",
+								"username": "root"
+							}
 						},
 						"method": "POST",
 						"header": [
@@ -349,19 +289,32 @@
 							"mode": "raw",
 							"raw": "{\n  \"Pete\": \"Foobar123\"\n}"
 						},
-						"url": {
-							"raw": "localhost:8080/api/v1/record/15",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"v1",
-								"record",
-								"15"
-							]
-						}
+						"url": "localhost:8080/api/v1/record/15"
+					},
+					"response": []
+				},
+				{
+					"name": "V1 Test - Post - Delete",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic dGVzdDp1c2Vy"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Pete\": \"Foobar123\"\n}"
+						},
+						"url": "localhost:8080/api/v1/record/15"
 					},
 					"response": []
 				}

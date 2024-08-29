@@ -38,6 +38,17 @@ public class RecordServletV1 extends BaseServlet {
 
     }
 
+    private JSONObject applyDiff(JSONObject existing, JSONObject incoming) {
+        for (String key : incoming.keySet()) {
+            if (incoming.isNull(key)) {
+                existing.remove(key);
+            } else {
+                existing.put(key, incoming.get(key));
+            }
+        }
+        return existing;
+    }
+
     @Override
     public void doPost(Integer recordId, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -49,11 +60,24 @@ public class RecordServletV1 extends BaseServlet {
         }
         logger.info("The read json string is: {}", json);
 
-        recordModel.writeToDb(recordId, json.toString());
+        JSONObject written = null;
+
+        // read existing value and apply diff if exists
+        JSONObject existingObject = recordModel.readFromDb(recordId);
+        if (existingObject == null) {
+            // save the record as is
+            written = json;
+        } else {
+            // apply the diff
+            JSONObject updatedJSON = applyDiff(existingObject, json);
+            written = updatedJSON;
+        }
+
+        recordModel.writeToDb(recordId, written.toString());
 
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println("{ \"status\": \"ok\", \"id\": "  + recordId + "}");
+        response.getWriter().println("{ \"status\": \"ok\", \"id\": "  + recordId + ", \"data\": " + written  + "}");
     }
 
 }
