@@ -17,6 +17,10 @@ public class App {
     private static final Logger logger = LoggerFactory.getLogger(App.class);
     private static Server jetty;
     public static void main(String[] args) throws Exception {
+
+        // TODO: remove this from here;
+        Runtime.getRuntime().exec("rm -rf /tmp/rainbow.db");
+
         startServer();
     }
 
@@ -35,7 +39,7 @@ public class App {
         servletContextHandler.addServlet(new ServletHolder(recordServletV1), "/api/v1/record/*");
 
         RecordServletV2 recordServletV2 = injector.getInstance(RecordServletV2.class);
-        servletContextHandler.addServlet(new ServletHolder(recordServletV1), "/api/v2/record/*");
+        servletContextHandler.addServlet(new ServletHolder(recordServletV2), "/api/v2/record/*");
 
 
         logger.info("Starting the server!!");

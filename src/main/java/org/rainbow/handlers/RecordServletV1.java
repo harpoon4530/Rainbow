@@ -25,17 +25,21 @@ public class RecordServletV1 extends BaseServlet {
     @Override
     public void doGet(Integer recordId, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        JSONObject jsonObject = recordModel.readFromDb(recordId);
+        JSONArray jsonArray = recordModel.readFromDb(recordId);
 
-        if (jsonObject == null) {
+        if (jsonArray == null) {
             // record not found;
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
 
+        // return the last object only
+        int lastIndex = jsonArray.length();
+        JSONObject lastObject = new JSONObject(jsonArray.get(lastIndex-1).toString());
+
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println(jsonObject.toString());
+        response.getWriter().println(lastObject.toString());
 
     }
 
@@ -64,17 +68,23 @@ public class RecordServletV1 extends BaseServlet {
         JSONObject newObject = null;
 
         // read existing value and apply diff if exists
-        JSONObject existingObject = recordModel.readFromDb(recordId);
-        JSONObject existingObjectClone = recordModel.readFromDb(recordId);
+        JSONArray existingObjectArr = recordModel.readFromDb(recordId);
+        JSONArray existingObjectClone = existingObjectArr == null ? null : new JSONArray(existingObjectArr.toString());
 
-        if (existingObject == null) {
+        //JSONArray existingObjectClone = recordModel.readFromDb(recordId);
+
+        if (existingObjectArr == null) {
             logger.info("The existing object is null");
             // save the record as is
             newObject = json;
         } else {
-            logger.info("The existing object is: {}", existingObject.toString());
-            // apply the diff
-            JSONObject updatedJSON = applyDiff(existingObject, json);
+            logger.info("The existing object is: {}", existingObjectArr.toString());
+            // apply the diff to the last item
+            int lastIndex = existingObjectArr.length();
+            JSONObject lastObject = new JSONObject(existingObjectArr.get(lastIndex-1).toString());
+            logger.info("The last object is: " + lastObject);
+
+            JSONObject updatedJSON = applyDiff(lastObject, json);
             newObject = updatedJSON;
         }
 

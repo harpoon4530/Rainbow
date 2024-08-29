@@ -1,6 +1,7 @@
 package org.rainbow.models;
 
 import com.google.inject.Inject;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.rainbow.db.DbModule;
 import org.slf4j.Logger;
@@ -27,9 +28,10 @@ public class RecordModel {
         this.dbModule = dbModule;
     }
 
-    public JSONObject readFromDb(Integer id) {
+    public JSONArray readFromDb(Integer id) {
 
         JSONObject json = null;
+        JSONArray jsonArray = null;
         String sql = "SELECT * FROM " +  dbModule.recordTable + " WHERE id = ?";
 
         try {
@@ -40,12 +42,13 @@ public class RecordModel {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                // Assuming the table has columns id, name, and age
+                // Assuming the table has columns id, record
                 int recordId = rs.getInt("id");
                 String data = rs.getString("record");
 
                 logger.info("For id: {} we have the data: {}", id, data);
-                json = new JSONObject(data);
+                //json = new JSONObject(data);
+                jsonArray = new JSONArray(data);
             }
         } catch (SQLException e) {
             logger.error("Unable to execute query");
@@ -55,17 +58,23 @@ public class RecordModel {
             logger.error("Unable to find any data for the id: {}", id);
         }
 
-        return json;
+        return jsonArray;
     }
 
-    public void writeToDb(Integer id, JSONObject newData, JSONObject oldData) {
+    public void writeToDb(Integer id, JSONObject newData, JSONArray oldData) {
 
         String row;
         if (oldData == null) {
+            JSONArray arr = new JSONArray().put(newData);
             row = "INSERT OR REPLACE INTO " + dbModule.recordTable +
-                    " (id, record) VALUES (" + id + ",'" + newData.toString() + "')";
+                    " (id, record) VALUES (" + id + ",'" + arr.toString() + "')";
         } else {
-            row = "UPDATE " + dbModule.recordTable + " SET record = '" +  newData.toString() +
+
+            JSONArray updatedData =  new JSONArray(oldData.toString());
+            logger.info(updatedData.toString());
+            updatedData.put(newData);
+
+            row = "UPDATE " + dbModule.recordTable + " SET record = '" +  updatedData.toString() +
                     "' WHERE id = " + id  + " AND record = '" + oldData.toString()  + "';" ;
         }
         logger.info("Executing the query: {}", row);

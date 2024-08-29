@@ -65,7 +65,7 @@ public class AppTest {
 
         // Try accessing empty record
         logger.info("Sending the HTTP GET request");
-        response = sendHTTPGETRequest(1);
+        response = sendHTTPGETRequest("http://localhost:8080/api/v1/record/" + 12);
         Assert.assertEquals(HttpServletResponse.SC_NOT_FOUND, response.statusCode());
 
 
@@ -118,11 +118,32 @@ public class AppTest {
         data = jsonObject.getJSONObject("data");
         Assert.assertTrue(data.has("hello"));
         Assert.assertTrue(data.has("three"));
+
+
+        // TEST V2 VALID OFFSET
+        logger.info("Sending the V2 HTTP GET request");
+        response = sendHTTPGETRequest("http://localhost:8080/api/v2/record/1/1");
+        Assert.assertEquals(HttpServletResponse.SC_OK, response.statusCode());
+
+
+        // TEST V2 INVALID OFFSET
+        logger.info("Sending the V2 HTTP GET request");
+        response = sendHTTPGETRequest("http://localhost:8080/api/v2/record/1/15");
+        Assert.assertEquals(HttpServletResponse.SC_NOT_FOUND, response.statusCode());
+
+        // TEST V2 Latest DATA
+        logger.info("Sending the V2 HTTP GET request");
+        response = sendHTTPGETRequest("http://localhost:8080/api/v2/record/1");
+        Assert.assertEquals(HttpServletResponse.SC_OK, response.statusCode());
+
+        logger.info(response.body());
+
     }
 
-    public HttpResponse sendHTTPGETRequest(Integer id) throws IOException, InterruptedException {
+    public HttpResponse sendHTTPGETRequest(String url) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/api/v1/record/" + id))
+                //.uri(URI.create("http://localhost:8080/api/v1/record/" + id))
+                .uri(URI.create(url))
                 .header("Content-Type", "application/json")
                 .GET()
                 .build();

@@ -322,7 +322,30 @@
 		},
 		{
 			"name": "V2",
-			"item": []
+			"item": [
+				{
+					"name": "V2 - GET SPECIFIC VERSION",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "password",
+								"username": "root"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic cm9vdDpwYXNzd29yZA==",
+								"disabled": true
+							}
+						],
+						"url": "localhost:8080/api/v2/record/1/1"
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
