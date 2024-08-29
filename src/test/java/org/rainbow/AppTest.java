@@ -104,6 +104,19 @@ public class AppTest {
         data = jsonObject.getJSONObject("data");
         Assert.assertTrue(data.has("hello"));
         Assert.assertFalse(data.has("one"));
+
+
+        // TEST UPDATE
+        json.clear();
+        json.put("three", "four");
+        response = sendHTTPPOSTRequest(1, json);
+        Assert.assertEquals(200, response.statusCode());
+
+        jsonObject = new JSONObject(response.body());
+        Assert.assertTrue(jsonObject.has("data"));
+        data = jsonObject.getJSONObject("data");
+        Assert.assertTrue(data.has("hello"));
+        Assert.assertTrue(data.has("three"));
     }
 
     public HttpResponse sendHTTPGETRequest(Integer id) throws IOException, InterruptedException {
